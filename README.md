@@ -29,3 +29,14 @@ drop warehouse if exists dbt_wh;
 drop database if exists dbt_db;
 drop role if exists dbt_role;
 ```
+
+```YAML
+models:
+  snowflake_workshop:
+    staging:
+      materialized: view
+      snowflake_warehouse: dbt_wh
+    marts:
+      materialized: table
+      snowflake_warehouse: dbt_wh
+```

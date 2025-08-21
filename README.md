@@ -30,6 +30,7 @@ drop database if exists dbt_db;
 drop role if exists dbt_role;
 ```
 
+### Step 1: Configure dbt_profile.yaml
 ```YAML
 models:
   snowflake_workshop:

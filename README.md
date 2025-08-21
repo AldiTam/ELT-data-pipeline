@@ -30,7 +30,7 @@ drop database if exists dbt_db;
 drop role if exists dbt_role;
 ```
 
-### Step 1: Configure dbt_profile.yaml
+### Step 2: Configure dbt_profile.yaml
 ```YAML
 models:
   snowflake_workshop:
@@ -40,4 +40,30 @@ models:
     marts:
       materialized: table
       snowflake_warehouse: dbt_wh
+```
+
+### Step 3: Create source and staging files
+
+Create ```models/staging/tpch_sources.yml```
+```YAML
+version: 2
+
+sources:
+  - name: tpch
+    database: snowflake_sample_data
+    schema: tpch_sf1
+    tables:
+      - name: orders
+        columns:
+          - name: o_orderkey
+            tests:
+              - unique
+              - not_null
+      - name: lineitem
+        columns:
+          - name: l_orderkey
+            tests:
+              - relationships:
+                  to: source('tpch', 'orders')
+                  field: o_orderkey
 ```

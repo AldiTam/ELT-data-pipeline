@@ -14,7 +14,7 @@ create role if not exists dbt_role;
 
 show grants on warehouse dbt_wh;
 
-grant role dbt_role to user jayzern;
+grant role dbt_role to user (user-name);
 grant usage on warehouse dbt_wh to role dbt_role;
 grant all on database dbt_db to role dbt_role;
 
@@ -66,4 +66,18 @@ sources:
               - relationships:
                   to: source('tpch', 'orders')
                   field: o_orderkey
+```
+
+Create staging models models/staging/stg_tpch_orders.sql
+
+```sql
+select
+    o_orderkey as order_key,
+    o_custkey as customer_key,
+    o_orderstatus as status_code,
+    o_totalprice as total_price,
+    o_orderdate as order_date
+from
+    {{ source('tpch', 'orders') }}
+
 ```

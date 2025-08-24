@@ -1,4 +1,4 @@
-# ETL-data-pipeline (dbt, Snowflake, Airflow)
+# ELT-data-pipeline (dbt, Snowflake, Airflow)
 
 ##
 
